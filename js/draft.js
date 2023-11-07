@@ -2,25 +2,25 @@
 
 // Global Variables
 const productNames = [
-  "bag",
-  "banana",
-  "bathroom",
-  "boots",
-  "breakfast",
-  "bubblegum",
-  "chair",
-  "cthulhu",
-  "dog-duck",
-  "dragon",
-  "pen",
-  "pet-sweep",
-  "scissors",
-  "shark",
-  "sweep",
-  "tauntaun",
-  "unicorn",
-  "water-can",
-  "wine-glass",
+  "Bag",
+  "Banana",
+  "Bathroom",
+  "Boots",
+  "Breakfast",
+  "Bubblegum",
+  "Chair",
+  "Cthulhu",
+  "Dog-Duck",
+  "Dragon",
+  "Pen",
+  "Pet-Sweep",
+  "Scissors",
+  "Shark",
+  "Sweep",
+  "Tauntaun",
+  "Unicorn",
+  "Water-Can",
+  "Wine-Glass",
 ];
 
 // Global State of application
@@ -36,26 +36,6 @@ let state = {
 // const button = document.getElementById('showResults');
 // const reset =document.getElementsById('reset');
 
-// Constructor function for creating duck objects
-function Product(name, path) {
-  this.name = name;
-  this.path = path;
-  this.votes = 0;
-  this.views = 0;
-  state.allProducts.push(this);
-}
-
-// Function to create new objects using constructor
-function productInfo() {
-  // function productInfo() {
-  for (let i = 0; i < productNames.length; i++) {
-    let product = new Product(
-      productNames[i],
-      "img/" + productNames[i] + ".jpg"
-    );
-    state.allProducts.push(product);
-  }
-}
 
 let productTally = {
   clicks: 0,
@@ -67,12 +47,41 @@ let productTally = {
   image3: document.getElementById("img3"),
   button: document.getElementById("showResults"),
   reset: document.getElementById("reset"),
-  // left:null,
-  // middle: null,
-  // right: null,
+  leftProduct:null,
+  middleProduct: null,
+  rightProduct: null,
 };
-// Helper Functions
 
+// Constructor function for creating duck objects
+function Product(name, path) {
+  this.name = name;
+  this.path = path;
+  this.votes = 0;
+  this.views = 0;
+  // state.allProducts.push(this);
+}
+
+// Function to create new objects using constructor
+function newProduct() {
+  // function productInfo() {
+  for (let i = 0; i < productNames.length; i++) {
+    let newProduct = new Product(productNames[i], "img/" + productNames[i] + ".jpg");
+      state.allProducts.push(product);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+// Helper Functions
 function renderProducts() {
   function randomProduct() {
     return Math.floor(Math.random() * productNames.length);
@@ -98,52 +107,7 @@ function renderProducts() {
   state.allProducts[middle].views++;
   state.allProducts[right].views++;
 
-  function removeButton() {
-    button.style.display = "none";
-  }
-
-  function renderResultsBtn() {
-    button.style.display = "block";
-  }
-
-  function showResults() {
-    for (let i = 0; i < state.allPics.length; i++) {
-      let productResult = document.createElement("p");
-      productResult.textContent = `${state.allPics[i].name} votes: ${Number(
-        state.allPics[i].votes
-      )} views: ${state.allPics[i].views}`;
-      resultsContainer.appendChild(productResult);
-    }
-  }
-
-  function clickEvent(event) {
-    let imageName = event.target.alt;
-
-    for (let i = 0; i < state.allPics.length; i++) {
-      if (imageName === state.allPics[i].name) {
-        state.allPics[i].votes++;
-        break;
-      }
-    }
-
-    if (state.clicks >= state.maxClicks) {
-      duckContainer.removeEventListener("click", clickEvent);
-      renderResultsBtn();
-      state.clicks++;
-      // console.log(state.currentClicks);
-      // console.log(Product.votes);
-      renderProducts();
-    }
-
-    function listeners() {
-      duckContainer.addEventListener("click", clickEvent);
-      button.addEventListener("click", showResults);
-    }
-  }
-}
-renderProducts();
-setupListeners();
-removeButton();
+ 
 
 // productTally.left.views++;
 
@@ -248,3 +212,44 @@ removeButton();
 // productTally.removeEventListener();
 // productTally.renderProducts();
 // productTally.setupListeners();
+
+
+let config = {
+  type: 'bar',
+  data: {
+    labels: duckNames,
+    datasets: [
+      {
+        label: 'Duck Votes',
+        data: duckVotes,
+        borderWidth: 1,
+        backgroundColor: [
+          'rgb(25, 117, 1, 1)'
+        ],
+        borderColor: [
+          'rgb(25, 117, 1, 1)'
+        ]
+      },
+      {
+        label: 'Duck Views',
+        data:duckViews ,
+        borderWidth: 1,
+        backgroundColor:[
+          'rgba(255, 170, 0, 1)',
+        ],
+        borderColor: [
+          'rgb(255, 170, 0, 1)',
+        ]
+      }
+    ],
+  },
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
+  }
+};
+new Chart(ctx, config);
+}
