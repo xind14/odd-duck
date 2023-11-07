@@ -1,71 +1,26 @@
-'use strict';
+"use strict";
 
-// Global Variables
-const productNames = [
-  "bag",
-  "banana",
-  "bathroom",
-  "boots",
-  "breakfast",
-  "bubblegum",
-  "chair",
-  "cthulhu",
-  "dog-duck",
-  "dragon",
-  "pen",
-  "pet-sweep",
-  "scissors",
-  "shark",
-  "sweep",
-  "tauntaun",
-  "unicorn",
-  "water-can",
-  "wine-glass",
-];
+let duckContainer = document.getElementById("products");
+let resultsContainer = document.getElementById("results");
+let button = document.getElementById("showResults");
 
-// Global State of application
+let image1 = document.getElementById("img1");
+let image2 = document.getElementById("img2");
+let image3 = document.getElementById("img3");
+
 let state = {
   clicks: 0,
   maxClicks: 25,
   allProducts: [],
-  duckContainer: document.getElementById("products"),
-  resultsContainer: document.getElementById("results"),
-  image1: document.getElementById("#img1"),
-  image2: document.getElementById("#img2"),
-  image3: document.getElementById("#img3"),
-  button: document.getElementById("showResults"),
-  reset: document.getElementById("reset"),
 };
-
-// const duckContainer = document.getElementById('products');
-// const resultsContainer = document.getElementById('results');
-// const image1=document.querySelector('#img1');
-// const image2=document.querySelector('#img2');
-// const image3=document.querySelector('#img3');
-// const button = document.getElementById('showResults');
-// const reset =document.getElementsById('reset');
-
-// Constructor function for creating duck objects
 function Product(name, path) {
   this.name = name;
   this.path = path;
   this.votes = 0;
   this.views = 0;
-  // state.allProducts.push(this);
+  state.allProducts.push(this);
 }
 
-// Function to create new objects using constructor
-function productInfo() {
-  for (let i = 0; i < productNames.length; i++) {
-    let product = new Product(
-      productNames[i],
-      "img/" + productNames[i] + ".jpg"
-    );
-    state.allProducts.push(product);
-  }
-}
-
-// Helper Functions
 function renderProducts() {
   function randomProduct() {
     return Math.floor(Math.random() * state.allProducts.length);
@@ -76,10 +31,10 @@ function renderProducts() {
   let right = randomProduct();
 
   while (left === middle || left === right || middle === right) {
-    left = randomProduct();
+    middle = randomProduct();
+    right = randomProduct();
   }
 
-  // Display on Screen
   image1.src = state.allProducts[left].path;
   image1.alt = state.allProducts[left].name;
 
@@ -94,43 +49,68 @@ function renderProducts() {
   state.allProducts[right].views++;
 }
 
-function renderResultsButton() {
+function removeButton() {
+  button.style.display = "none";
+}
+
+function renderResultsBtn() {
   button.style.display = "block";
 }
 
 function renderResults() {
-  console.log("Showing the results");
+  for (let i = 0; i < state.allProducts.length; i++) {
+    let productResult = document.createElement("p");
+    productResult.textContent = `${state.allProducts[i].name} votes: ${Number(
+      state.allProducts[i].votes
+    )} views: ${state.allProducts[i].views}`;
+    resultsContainer.appendChild(productResult);
+  }
 }
 
 function handleClick(event) {
-  let goatName = event.target.alt;
+  let imageName = event.target.alt;
 
-  // Loop the array and find that goat, update the vote and stop
-  for (let i = 0; i < state.allGoats.length; i++) {
-    if (goatName === state.allGoats[i].name) {
-      state.allGoats[i].votes++;
+  for (let i = 0; i < state.allProducts.length; i++) {
+    if (imageName === state.allProducts[i].name) {
+      state.allProducts[i].votes++;
       break;
     }
   }
 
-  state.numClicksSoFar++;
-
-  if (state.numClicksSoFar >= state.numClicksAllowed) {
-    removeListener();
-    renderResultsButton();
-  } else {
-    renderProducts();
+  if (state.clicks >= state.maxClicks) {
+    duckContainer.removeEventListener("click", handleClick);
+    renderResultsBtn();
   }
+
+  state.clicks++;
+  renderProducts();
 }
 
 function setupListeners() {
-  goatsContainer.addEventListener("click", handleClick);
+  duckContainer.addEventListener("click", handleClick);
   button.addEventListener("click", renderResults);
 }
 
-function removeListener() {
-  goatsContainer.removeEventListener("click", handleClick);
-}
+new Product("Bag", "img/bag.jpg");
+new Product("Banana", "img/banana.jpg");
+new Product("Bathroom", "img/bathroom.jpg");
+new Product("Boots", "img/boots.jpg");
+new Product("Breakfast", "img/breakfast.jpg");
+new Product("Bubblegum", "img/bubblegum.jpg");
+new Product("Chair", "img/chair.jpg");
+new Product("Cthulhu", "img/cthulhu.jpg");
+new Product("Dog-Duck", "img/dog-duck.jpg");
+new Product("Dragon", "img/dragon.jpg");
+new Product("Pen", "img/pen.jpg");
+new Product("Pet-Sweep", "img/pet-sweep.jpg");
+new Product("Scissors", "img/scissors.jpg");
+new Product("Shark", "img/shark.jpg");
+new Product("Sweep", "img/sweep.jpg");
+new Product("Tauntaun", "img/tauntaun.jpg");
+new Product("Unicorn", "img/unicorn.jpg");
+new Product("Water-Can", "img/water-can.jpg");
+new Product("Wine-Glass", "img/wine-glass.jpg");
 
 renderProducts();
 setupListeners();
+removeButton();
