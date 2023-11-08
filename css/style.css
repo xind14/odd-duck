@@ -28,7 +28,6 @@ h1 {
 }
 
 #products {
-  /* background: green; */
   display: flex;
   gap: 2rem;
 }
@@ -37,12 +36,12 @@ h1 {
   flex: 1;
   min-width: 0;
   border: 5px solid rgb(34, 125, 178);
+  border-radius: 5px;
 }
 
 
 #renderChart {
   justify-content: center;
-  /* background: blue; */
   display: flex;
   margin-top: 20px;
 }
@@ -50,26 +49,30 @@ h1 {
 
  
 #chart {
-  background-color: rgb(240, 158, 6);
-  color: aliceblue;
+  background-color:lightblue;
+  color: black;
   border: 0;
   border-radius: 5px;
   padding: 1rem;
   font-size: 2rem;
-  cursor:grab;
+  
+
 }
 
 
 #words {
   justify-content: center;
-  background: pink;
+  background: lightpink;
   margin-top: 20px;
 font-size: 20px;
  border: 2px solid #111;
   text-align: center;
+  padding: 10px;
 }
 
-
+p {
+  padding:10px;
+}
 
   
 
@@ -85,7 +88,7 @@ button {
 footer {
   font-size: 20px;
   text-align: center;
-  background: orange;
+  /* background: orange; */
   padding: 20px;
   font-size: 20px;
   margin-top: 20px;

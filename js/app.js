@@ -102,15 +102,15 @@ let  productViews = [];
       {
         label: "Likes",
         data: productVotes,
-        borderWidth: 1,
+        borderWidth: 2,
         backgroundColor: [
-          'blue'
+          'darkblue'
         ]
       },
       {
         label: "Views",
         data: productViews,
-        borderWidth: 1,
+        borderWidth: 2,
         backgroundColor: ['red']
       }
     ]
@@ -122,7 +122,8 @@ let  productViews = [];
     options: {
       scales: {
         y: {
-          beginAtZero: true
+          beginAtZero: true,
+          
         }
       }
     }
