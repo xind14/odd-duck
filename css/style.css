@@ -1,73 +1,95 @@
- /* * { border: 1px solid black !important;
+/* * { border: 1px solid black !important;
 }   */
-
-
-  .oddDuck {  display: grid;
-    grid-template-columns: 1fr 0.9fr 1.1fr 1fr;
-    grid-template-rows: 1fr 4.6fr 0.3fr 1fr 1fr;
-    grid-auto-columns: 1fr;
-    gap: 20px 20px;
-    grid-auto-flow: row;
-    grid-template-areas:
-      "header header header header"
-      "results products products products"
-      "results button button button"
-      "results words words words"
-      "footer footer footer footer";
-  }
-  
 body {
   background: beige;
+
+}
+header {
+  /* background: pink; */
+    text-align: center;
+  font-size: 3em;
+  font-weight: bold;
+  color: black;
+  font-family: 'Courier New', Courier, monospace;
+  
 }
 
-header { grid-area: header; }
-
-h1
-{
- font-size: 48px;
- text-align: center;
- margin: 20px;
- /* margin-bottom: 24px; */
+h1 {
+  margin: 20px;
+  padding: 20px;
 }
 
-  #results { grid-area: results;
-    font-size: 20px;
-    /* display: flex;
-    flex-direction: column;
-    align-items: center; */
-   }
-  
-  
-  
- 
-  
-  .words { grid-area: words;
-  font-size: 20px; 
-  border: 2px solid #111;
+.oddDuck {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 80%;
+  margin: 1em auto;
 }
-  
+
 #products {
-  grid-area: products;
-display: flex;
-flex-direction: row;
-justify-content: center;
-margin: 20px;
-   
+  display: flex;
+  gap: 2rem;
 }
 
-  .productImg { 
-    width: 300px;
-    border: 2px solid #111;
-    
-   
-   }
+#products img {
+  flex: 1;
+  min-width: 0;
+  border: 5px solid rgb(34, 125, 178);
+  border-radius: 5px;
+}
+
+
+#renderChart {
+  justify-content: center;
+  display: flex;
+  margin-top: 20px;
+}
+
+
+ 
+#chart {
+  background-color:lightblue;
+  color: black;
+  border: 0;
+  border-radius: 5px;
+  padding: 1rem;
+  font-size: 2rem;
   
-  button { grid-area: button; }
+
+}
+
+
+#words {
+  justify-content: center;
+  background: lightpink;
+  margin-top: 20px;
+font-size: 20px;
+ border: 2px solid #111;
+  text-align: center;
+  padding: 10px;
+}
+
+p {
+  padding:10px;
+}
+
   
 
 
- footer { grid-area: footer;
+button {
+  grid-area: button;
+  background: red;
+  margin-top: 20px;
+}
+
+
+
+footer {
   font-size: 20px;
   text-align: center;
-  margin: 20px;
+  /* background: orange; */
+  padding: 20px;
+  font-size: 20px;
+  margin-top: 20px;
 }

@@ -12,6 +12,7 @@ let state = {
   clicks: 0,
   maxClicks: 25,
   allProducts: [],
+  lastProduct:[], 
 };
 function Product(name, path) {
   this.name = name;
@@ -30,10 +31,21 @@ function renderProducts() {
   let middle = randomProduct();
   let right = randomProduct();
 
-  while (left === middle || left === right || middle === right) {
+  while (left === middle || left === right || middle === right 
+    ||
+         state.lastProduct.includes(state.allProducts[left].name) ||
+         state.lastProduct.includes(state.allProducts[middle].name) ||
+         state.lastProduct.includes(state.allProducts[right].name)) {
+    left = randomProduct();
     middle = randomProduct();
     right = randomProduct();
   }
+  //new
+  state.lastProduct =[
+    state.allProducts[left].name,
+    state.allProducts[middle].name,
+    state.allProducts[right].name,
+  ];
 
   image1.src = state.allProducts[left].path;
   image1.alt = state.allProducts[left].name;
@@ -49,23 +61,79 @@ function renderProducts() {
   state.allProducts[right].views++;
 }
 
+state.lastProduct = [];
+
 function removeButton() {
   button.style.display = "none";
 }
 
-function renderResultsBtn() {
+function renderResultsButton() {
   button.style.display = "block";
+
 }
+let productChart = document.getElementById('chart');
 
 function renderResults() {
+  // for (let i = 0; i < state.allProducts.length; i++) {
+  //   let productResult = document.createElement("p");
+  //   productResult.textContent = `${state.allProducts[i].name} votes: ${Number(
+  //     state.allProducts[i].votes
+  //   )} views: ${state.allProducts[i].views}`;
+  //   resultsContainer.appendChild(productResult);
+    
+  //   }
+
+// function renderChart() {
+
+
+let  productVotes = [];
+let productNames = [];
+let  productViews = [];
+
   for (let i = 0; i < state.allProducts.length; i++) {
-    let productResult = document.createElement("p");
-    productResult.textContent = `${state.allProducts[i].name} votes: ${Number(
-      state.allProducts[i].votes
-    )} views: ${state.allProducts[i].views}`;
-    resultsContainer.appendChild(productResult);
+    productVotes.push(state.allProducts[i].votes);
+    productNames.push(state.allProducts[i].name);
+    productViews.push(state.allProducts[i].views);
   }
+
+  const myChartData = {
+    labels: productNames,
+    datasets: [
+      {
+        label: "Likes",
+        data: productVotes,
+        borderWidth: 2,
+        backgroundColor: [
+          'darkblue'
+        ]
+      },
+      {
+        label: "Views",
+        data: productViews,
+        borderWidth: 2,
+        backgroundColor: ['red']
+      }
+    ]
+  }
+
+  const config = {
+    type: 'bar',
+    data: myChartData,
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+          
+        }
+      }
+    }
+  }
+
+  // reportContainer is our <canvas> element for chartJS
+  const myChart = new Chart(productChart, config);
+
 }
+
 
 function handleClick(event) {
   let imageName = event.target.alt;
@@ -76,20 +144,26 @@ function handleClick(event) {
       break;
     }
   }
+  state.clicks++;
 
   if (state.clicks >= state.maxClicks) {
     duckContainer.removeEventListener("click", handleClick);
-    renderResultsBtn();
-  }
+    renderResults();
+    // renderResultsButton();
+  } 
+  else {
 
-  state.clicks++;
   renderProducts();
-}
 
+}
+}
 function setupListeners() {
   duckContainer.addEventListener("click", handleClick);
-  button.addEventListener("click", renderResults);
+    // button.addEventListener("click", renderResults);
 }
+function removeListener() {
+  duckContainer.removeEventListener("click", handleClick);
+ }
 
 new Product("Bag", "img/bag.jpg");
 new Product("Banana", "img/banana.jpg");
