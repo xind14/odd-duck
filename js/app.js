@@ -12,7 +12,6 @@ let state = {
   clicks: 0,
   maxClicks: 25,
   allProducts: [],
-  //new
   lastProduct:[], 
 };
 function Product(name, path) {
@@ -33,7 +32,6 @@ function renderProducts() {
   let right = randomProduct();
 
   while (left === middle || left === right || middle === right 
-    //new
     ||
          state.lastProduct.includes(state.allProducts[left].name) ||
          state.lastProduct.includes(state.allProducts[middle].name) ||
@@ -63,7 +61,6 @@ function renderProducts() {
   state.allProducts[right].views++;
 }
 
-//new
 state.lastProduct = [];
 
 function removeButton() {
@@ -150,8 +147,9 @@ function handleClick(event) {
 
   if (state.clicks >= state.maxClicks) {
     duckContainer.removeEventListener("click", handleClick);
-    renderResultsButton();
-  } // new
+    renderResults();
+    // renderResultsButton();
+  } 
   else {
 
   renderProducts();
@@ -160,7 +158,7 @@ function handleClick(event) {
 }
 function setupListeners() {
   duckContainer.addEventListener("click", handleClick);
-    button.addEventListener("click", renderResults);
+    // button.addEventListener("click", renderResults);
 }
 function removeListener() {
   duckContainer.removeEventListener("click", handleClick);
