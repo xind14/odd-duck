@@ -1,4 +1,4 @@
-# Lab 11, 12, 13, 14, 15
+# Lab 11, 12, 13
 
 ## Odd Duck Pt. 1
 
@@ -32,7 +32,7 @@
 - It took me 11 hours because I had to restart to hit at least some of the instructions for lab 11. I thought it would take me long but didn't think it would take this long. 
 
 
-# Lab 11, 12, 13, 14, 15
+# Lab 11, 12, 13
 
 ## Odd Duck Pt. 2
 
@@ -43,7 +43,7 @@
 
 1. [Setting Up a New Code 201 Project](https://codefellows.github.io/code-201-guide/curriculum/class-02/project-setup)
 
-3. [Grid Generator](https://grid.layoutit.com/)
+2. [Grid Generator](https://grid.layoutit.com/)
 
 ### Lighthouse Accessibility Report Score
 
@@ -62,3 +62,34 @@
 3. How long did it take you to complete this assignment? And, before you started, how long did you think it would take you to complete this assignment?
  
 - This took me 5 hours which was 6 less then yesterday so that is a huge win for me. I thought it was going to take longer to be honest but I'm glad it didn't.
+
+# Lab 11, 12, 13
+
+## Odd Duck Pt. 3
+
+
+### Author: Xin Deng
+
+### Links and Resources
+
+1. [Setting Up a New Code 201 Project](https://codefellows.github.io/code-201-guide/curriculum/class-02/project-setup)
+
+3. [Grid Generator](https://grid.layoutit.com/)
+
+### Lighthouse Accessibility Report Score
+
+![Lighthouse report for Lab 13](img/lighthouse3.png)
+
+### Reflections and Comments
+
+1. How did this go, overall?
+
+ - I added so little lines of code and it still took me so long. I just couldn't find where to put the local storage get and set lines and it took me awhile to figure out and then I got ambitious and wanted to add in two charts one for votes and one for views and it messed everything up and I had to fix all the ideas I wanted to try.
+
+2. What observations or questions do you have about what you’ve learned so far?
+
+- It seems easy enough because the code is short, but sometimes the easier looking things are actually not so I have to prepare myself for that.
+
+3. How long did it take you to complete this assignment? And, before you started, how long did you think it would take you to complete this assignment?
+ 
+- It took me 6 hours to do this one. I thought it was going to be shorter but I was playing around too much or wanting to add too much and fixing my mistakes took more time.

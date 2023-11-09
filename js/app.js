@@ -8,9 +8,13 @@ let image1 = document.getElementById("img1");
 let image2 = document.getElementById("img2");
 let image3 = document.getElementById("img3");
 
+let clicks = 0;
+let maxClicks = 25;
+
+
 let state = {
-  clicks: 0,
-  maxClicks: 25,
+  // clicks: 0,
+  // maxClicks: 25,
   allProducts: [],
   lastProduct:[], 
 };
@@ -40,7 +44,6 @@ function renderProducts() {
     middle = randomProduct();
     right = randomProduct();
   }
-  //new
   state.lastProduct =[
     state.allProducts[left].name,
     state.allProducts[middle].name,
@@ -100,7 +103,7 @@ let  productViews = [];
     labels: productNames,
     datasets: [
       {
-        label: "Likes",
+        label: "Votes",
         data: productVotes,
         borderWidth: 2,
         backgroundColor: [
@@ -129,7 +132,6 @@ let  productViews = [];
     }
   }
 
-  // reportContainer is our <canvas> element for chartJS
   const myChart = new Chart(productChart, config);
 
 }
@@ -144,26 +146,32 @@ function handleClick(event) {
       break;
     }
   }
-  state.clicks++;
+  // state.
+  clicks++;
 
-  if (state.clicks >= state.maxClicks) {
+  if (clicks >= maxClicks) {
     duckContainer.removeEventListener("click", handleClick);
     renderResults();
-    // renderResultsButton();
   } 
   else {
 
   renderProducts();
 
 }
+
+localStorage.setItem('state', JSON.stringify(state));
 }
 function setupListeners() {
   duckContainer.addEventListener("click", handleClick);
-    // button.addEventListener("click", renderResults);
 }
 function removeListener() {
   duckContainer.removeEventListener("click", handleClick);
  }
+function init (){
+   let stateString = localStorage.getItem('state')||"";
+  state = JSON.parse(stateString);
+}
+
 
 new Product("Bag", "img/bag.jpg");
 new Product("Banana", "img/banana.jpg");
@@ -185,6 +193,8 @@ new Product("Unicorn", "img/unicorn.jpg");
 new Product("Water-Can", "img/water-can.jpg");
 new Product("Wine-Glass", "img/wine-glass.jpg");
 
+
+init();
 renderProducts();
 setupListeners();
 removeButton();
