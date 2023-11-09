@@ -159,7 +159,7 @@ function handleClick(event) {
 
 }
 
-localStorage.setItem('state', JSON.stringify(state));
+localStorage.setItem('allProducts', JSON.stringify(state.allProducts));
 }
 function setupListeners() {
   duckContainer.addEventListener("click", handleClick);
@@ -168,10 +168,11 @@ function removeListener() {
   duckContainer.removeEventListener("click", handleClick);
  }
 function init (){
-   let stateString = localStorage.getItem('state')||"";
-  state = JSON.parse(stateString);
-}
-
+   let stateString = localStorage.getItem('allProducts');
+   if(stateString){
+      state.allProducts = JSON.parse(stateString);
+   }
+  }
 
 new Product("Bag", "img/bag.jpg");
 new Product("Banana", "img/banana.jpg");
