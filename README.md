@@ -1,4 +1,9 @@
-# Lab 11, 12, 13, 14
+# Lab 11, 12, 13, 15
+
+## Odd Duck Overview
+
+I developed a site for Odd Duck Product Co that wanted to streamline the selection of their next products through employee voting. The site features a dynamic interface displaying three potential products side-by-side, with an algorithm ensuring random and unbiased image generation. Users can click on their preferred product and their selections are tracked while controlling the number of voting rounds to 25. After a week of data collection, the site provides a chart with the results to visually represent votes data. To enhance user experience, local storage is implemented for persistent data tracking between page refreshes.
+
 
 ## Odd Duck Pt. 1
 
@@ -11,7 +16,6 @@
 
 2. [Loren Ipsum for replacement text](https://www.lipsum.com/)
 
-3. [Grid Generator](https://grid.layoutit.com/)
 
 ### Lighthouse Accessibility Report Score
 
@@ -32,7 +36,6 @@
 - It took me 11 hours because I had to restart to hit at least some of the instructions for lab 11. I thought it would take me long but didn't think it would take this long. 
 
 
-# Lab 11, 12, 13, 14
 
 ## Odd Duck Pt. 2
 
@@ -43,7 +46,6 @@
 
 1. [Setting Up a New Code 201 Project](https://codefellows.github.io/code-201-guide/curriculum/class-02/project-setup)
 
-2. [Grid Generator](https://grid.layoutit.com/)
 
 ### Lighthouse Accessibility Report Score
 
@@ -63,7 +65,6 @@
  
 - This took me 5 hours which was 6 less then yesterday so that is a huge win for me. I thought it was going to take longer to be honest but I'm glad it didn't.
 
-# Lab 11, 12, 13, 14
 
 ## Odd Duck Pt. 3
 
@@ -74,7 +75,6 @@
 
 1. [Setting Up a New Code 201 Project](https://codefellows.github.io/code-201-guide/curriculum/class-02/project-setup)
 
-3. [Grid Generator](https://grid.layoutit.com/)
 
 ### Lighthouse Accessibility Report Score
 
@@ -94,7 +94,6 @@
  
 - It took me 6 hours to do this one. I thought it was going to be shorter but I was playing around too much or wanting to add too much and fixing my mistakes took more time.
 
-# Lab 11, 12, 13, 14
 
 ## Odd Duck Pt. 4
 
@@ -105,20 +104,22 @@
 
 1. [Setting Up a New Code 201 Project](https://codefellows.github.io/code-201-guide/curriculum/class-02/project-setup)
 
-3. [Grid Generator](https://grid.layoutit.com/)
+2. [W3Schools CSS Site](https://www.w3schools.com/css/)
 
 ### Lighthouse Accessibility Report Score
 
-![Lighthouse report for Lab 14](img/lighthouse4.png)
+![Lighthouse report for Lab 15](img/lighthouse4.png)
 
 ### Reflections and Comments
 
 1. How did this go, overall?
 
-
+- Since this lab gave me an extra day I felt like I had time to explore CSS a lot without stressing about time. I just had fun with it and really enjoyed this last part of lab.
 
 2. What observations or questions do you have about what you’ve learned so far?
 
+- I'm not quite sure where to look for the correct chart.js config nested objects are. I had an issue with adjusting font sizes with the views and votes labels and the legend labels. I got the legend to change sizes but the votes and views didn't and when I got the votes and views labels to change sizes the legend didn't change. It took me comparing those two errors that they were nested in wrong places.
 
 3. How long did it take you to complete this assignment? And, before you started, how long did you think it would take you to complete this assignment?
  
+- It took me 7 hours which I was fine with this time because I took time to really explore the different CSS properties and how they work. I thought it was going to take me long because I still don't know if we were suppose to apply lab 14 format to lab 15. 
