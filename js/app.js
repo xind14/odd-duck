@@ -1,23 +1,23 @@
 "use strict";
 
-// Target Elements and counters 
+// Target Elements and counters
 let duckContainer = document.getElementById("products");
 let resultsContainer = document.getElementById("results");
 let button = document.getElementById("showResults");
 let image1 = document.getElementById("img1");
 let image2 = document.getElementById("img2");
 let image3 = document.getElementById("img3");
-let productChart = document.getElementById('chart');
+let productChart = document.getElementById("chart");
 let clicks = 0;
 let maxClicks = 25;
 
 // Global state of app
 let state = {
   allProducts: [],
-  lastProduct:[], 
+  lastProduct: [],
 };
 
-// Product Constructor 
+// Product Constructor
 function Product(name, path) {
   this.name = name;
   this.path = path;
@@ -33,27 +33,30 @@ function renderProducts() {
   function randomProduct() {
     return Math.floor(Math.random() * state.allProducts.length);
   }
-// Assign three random indices with the random function
+  // Assign three random indices with the random function
   let left = randomProduct();
   let middle = randomProduct();
   let right = randomProduct();
 
-// While loop that generates indices for left/middle/right to ensure same image does not appear in multiple positions in a round and also not displayed in previous iteration which is kept in the lastProduct array
-  while (left === middle || left === right || middle === right 
-    ||
-         state.lastProduct.includes(state.allProducts[left].name) ||
-         state.lastProduct.includes(state.allProducts[middle].name) ||
-         state.lastProduct.includes(state.allProducts[right].name)) {
+  // While loop that generates indices for left/middle/right to ensure same image does not appear in multiple positions in a round and also not displayed in previous iteration which is kept in the lastProduct array
+  while (
+    left === middle ||
+    left === right ||
+    middle === right ||
+    state.lastProduct.includes(state.allProducts[left].name) ||
+    state.lastProduct.includes(state.allProducts[middle].name) ||
+    state.lastProduct.includes(state.allProducts[right].name)
+  ) {
     left = randomProduct();
     middle = randomProduct();
     right = randomProduct();
   }
-  state.lastProduct =[
+  state.lastProduct = [
     state.allProducts[left].name,
     state.allProducts[middle].name,
     state.allProducts[right].name,
   ];
-// Update name and paths of new selected iteration and increment views for all three img position
+  // Update name and paths of new selected iteration and increment views for all three img position
   image1.src = state.allProducts[left].path;
   image1.alt = state.allProducts[left].name;
 
@@ -67,10 +70,10 @@ function renderProducts() {
   state.allProducts[middle].views++;
   state.allProducts[right].views++;
 }
-// Reset array to empty for next iteration 
+// Reset array to empty for next iteration
 state.lastProduct = [];
 
-// button functions  
+// button functions
 function removeButton() {
   button.style.display = "none";
 }
@@ -78,21 +81,19 @@ function renderResultsButton() {
   button.style.display = "block";
 }
 
-
-
 //--------------------------------- Results ---------------------------------//
 // Rendering results and chart by declaring empty arrays to store names, views, and votes. Loop that gets all three properties of the current products used and add it to the arrays
 function renderResults() {
-let  productVotes = [];
-let productNames = [];
-let  productViews = [];
+  let productVotes = [];
+  let productNames = [];
+  let productViews = [];
   for (let i = 0; i < state.allProducts.length; i++) {
     productVotes.push(state.allProducts[i].votes);
     productNames.push(state.allProducts[i].name);
     productViews.push(state.allProducts[i].views);
   }
 
-  // Create a chart object with two data sets that contain info in the arrays, and adding a configuration object specifying chart types 
+  // Create a chart object with two data sets that contain info in the arrays, and adding a configuration object specifying chart types
   const myChartData = {
     labels: productNames,
     datasets: [
@@ -100,34 +101,61 @@ let  productViews = [];
         label: "Votes",
         data: productVotes,
         borderWidth: 2,
-        backgroundColor: [
-          'darkblue'
-        ]
+        backgroundColor: ["darkblue"],
       },
       {
         label: "Views",
         data: productViews,
         borderWidth: 2,
-        backgroundColor: ['red']
-      }
-    ]
-  }
+        backgroundColor: ["red"],
+      },
+    ],
+  };
 
   const config = {
-    type: 'bar',
+    type: "bar",
     data: myChartData,
     options: {
+      plugins: {
+        title: {
+          display: true,
+          text: "Odd Duck's Product Votes",
+          align: "center",
+          font: {
+            size: 40,
+          },
+        },
+        legend: {
+          display: true,
+          labels: {
+            font: {
+              size: 30,
+            },
+          },
+        },
+      },
       scales: {
+        x: {
+          ticks: {
+            font: {
+              size: 20,
+            },
+          },
+        },
         y: {
           beginAtZero: true,
-          
-        }
-      }
-    }
-  }
-// Create new Chart instance
+          ticks: {
+            font: {
+              size: 20,
+            },
+          },
+        },
+      },
+    },
+  };
+ 
+      // Create new Chart instance
   const myChart = new Chart(productChart, config);
-
 }
 
 //--------------------------------- Event Handling ---------------------------------//
@@ -140,18 +168,17 @@ function handleClick(event) {
       break;
     }
   }
-// Increment clicks, if clicks reach max clicks remove users ability to click more and render results, else render another round of products again
+  // Increment clicks, if clicks reach max clicks remove users ability to click more and render results, else render another round of products again
   clicks++;
   if (clicks >= maxClicks) {
     duckContainer.removeEventListener("click", handleClick);
     renderResults();
-  } 
-  else {
-  renderProducts();
-}
+  } else {
+    renderProducts();
+  }
 
-// Set products in storage after voting
-localStorage.setItem('allProducts', JSON.stringify(state.allProducts));
+  // Set products in storage after voting
+  localStorage.setItem("allProducts", JSON.stringify(state.allProducts));
 }
 
 // Functions to set up and remove listeners
@@ -160,15 +187,15 @@ function setupListeners() {
 }
 function removeListener() {
   duckContainer.removeEventListener("click", handleClick);
- }
+}
 
- // Checks storage for products, if data is found update app state with JSON.parse to allow reuse of objects 
-function init (){
-   let stateString = localStorage.getItem('allProducts');
-   if(stateString){
-      state.allProducts = JSON.parse(stateString);
-   }
+// Checks storage for products, if data is found update app state with JSON.parse to allow reuse of objects
+function init() {
+  let stateString = localStorage.getItem("allProducts");
+  if (stateString) {
+    state.allProducts = JSON.parse(stateString);
   }
+}
 
 // Create instances of product constructor
 new Product("Bag", "img/bag.jpg");
@@ -191,7 +218,7 @@ new Product("Unicorn", "img/unicorn.jpg");
 new Product("Water-Can", "img/water-can.jpg");
 new Product("Wine-Glass", "img/wine-glass.jpg");
 
-// Invoking functions 
+// Invoking functions
 init();
 renderProducts();
 setupListeners();
