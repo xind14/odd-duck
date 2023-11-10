@@ -28,13 +28,6 @@ let state = {
   allProducts: [],
 };
 
-// const duckContainer = document.getElementById('products');
-// const resultsContainer = document.getElementById('results');
-// const image1=document.querySelector('#img1');
-// const image2=document.querySelector('#img2');
-// const image3=document.querySelector('#img3');
-// const button = document.getElementById('showResults');
-// const reset =document.getElementsById('reset');
 
 
 let productTally = {
@@ -77,25 +70,62 @@ function newProduct() {
 
 
 
+//Working Code
+
+"use strict";
+
+let duckContainer = document.getElementById("products");
+let resultsContainer = document.getElementById("results");
+let button = document.getElementById("showResults");
+
+let image1 = document.getElementById("img1");
+let image2 = document.getElementById("img2");
+let image3 = document.getElementById("img3");
+
+let clicks = 0;
+let maxClicks = 25;
 
 
+let state = {
+  // clicks: 0,
+  // maxClicks: 25,
+  allProducts: [],
+  lastProduct:[], 
+};
+function Product(name, path) {
+  this.name = name;
+  this.path = path;
+  this.votes = 0;
+  this.views = 0;
+  state.allProducts.push(this);
+}
 
-
-// Helper Functions
 function renderProducts() {
   function randomProduct() {
-    return Math.floor(Math.random() * productNames.length);
+    return Math.floor(Math.random() * state.allProducts.length);
   }
+
   let left = randomProduct();
   let middle = randomProduct();
   let right = randomProduct();
 
-  while (left === middle || left === right || middle === right) {
+  while (left === middle || left === right || middle === right 
+    ||
+         state.lastProduct.includes(state.allProducts[left].name) ||
+         state.lastProduct.includes(state.allProducts[middle].name) ||
+         state.lastProduct.includes(state.allProducts[right].name)) {
+    left = randomProduct();
     middle = randomProduct();
     right = randomProduct();
   }
-  productTally.image1.src = state.allProducts[left].path;
-  productTally.image1.alt = state.allProducts[left].name;
+  state.lastProduct =[
+    state.allProducts[left].name,
+    state.allProducts[middle].name,
+    state.allProducts[right].name,
+  ];
+
+  image1.src = state.allProducts[left].path;
+  image1.alt = state.allProducts[left].name;
 
   image2.src = state.allProducts[middle].path;
   image2.alt = state.allProducts[middle].name;
@@ -106,150 +136,140 @@ function renderProducts() {
   state.allProducts[left].views++;
   state.allProducts[middle].views++;
   state.allProducts[right].views++;
+}
 
- 
+state.lastProduct = [];
 
-// productTally.left.views++;
+function removeButton() {
+  button.style.display = "none";
+}
 
-// state.image2.src = state.allProducts[middle].path;
-// state.image2.alt = state.allProducts[middle].name;
-// productTally.image2.src =  productTally.middle.path;
-// productTally.image2.alt =  productTally.middle.name;
+function renderResultsButton() {
+  button.style.display = "block";
 
-// productTally.middle.views++;
+}
+let productChart = document.getElementById('chart');
 
-// state.allProducts[middle].views++;
+function renderResults() {
+  // for (let i = 0; i < state.allProducts.length; i++) {
+  //   let productResult = document.createElement("p");
+  //   productResult.textContent = `${state.allProducts[i].name} votes: ${Number(
+  //     state.allProducts[i].votes
+  //   )} views: ${state.allProducts[i].views}`;
+  //   resultsContainer.appendChild(productResult);
+    
+  //   }
 
-// state.image3.src = state.allProducts[right].path;
-// state.image3.alt = state.allProducts[right].name;
-// productTally.image3.src =  productTally.right.path;
-// productTally.image3.alt =  productTally.right.name;
-
-// productTally.right.views++;
-
-// renderProducts: function () {
-//   productTally.left = state.allProducts[productTally.randomProduct()];
-//   productTally.middle = state.allProducts[productTally.randomProduct()];
-//    productTally.right = state.allProducts[productTally.randomProduct()];
-
-//  if (productTally.left === productTally.middle || productTally.left === productTally.right || productTally.middle === productTally.right) {
-
-//     productTally.renderProducts();
-//   }
-//   left = randomProduct();
-//   middle = randomProduct();
-//  right = randomProduct();
-// }
-
-// Display on Screen
-// productTally.image1.src =  productTally.left.path;
-// productTally.image1.alt =  productTally.left.name;
-
-//   productTally.left.views++;
-
-// state.image2.src = state.allProducts[middle].path;
-// state.image2.alt = state.allProducts[middle].name;
-// productTally.image2.src =  productTally.middle.path;
-// productTally.image2.alt =  productTally.middle.name;
-
-// productTally.middle.views++;
-
-// state.allProducts[middle].views++;
-
-// state.image3.src = state.allProducts[right].path;
-// state.image3.alt = state.allProducts[right].name;
-// productTally.image3.src =  productTally.right.path;
-// productTally.image3.alt =  productTally.right.name;
-
-// productTally.right.views++;
-
-// state.allProducts[right].views++;
-// },
-
-// renderResultsButton: function () {
-//   button.style.display = "block";
-// },
-//   handleClick: function(event) {
-
-//   let clickedProduct = event.target.alt;
-//   for ( let i = 0; i < state.allProducts.length; i++ ) {
-//     if( clickedProduct === state.allProducts[i].name ) {
-//       state.allProducts[i].votes++;
-//       break;}}
-//       productTally.clicks++;
-
-//       if (productTally.clicks >=productTally.maxClicks){
-//         removeEventListener();
-//         renderResultsButton();
-//       } else {
-//           renderProducts();
-//         }
-//       },
-
-//  renderResults: function() {
-//   let ul = document.createElement('ul');
-//   resultsContainer.appendChild(ul)
-//   for (let i in state.allProducts) {
-//     let li = document.createElement('li');
-//     li.textContent = `${state.allProducts[i].name} had ${state.allProducts[i].views} views, and ${state.allProducts[i].votes} votes.`;
-//     resultsContainer.appendChild(li);
-//  }
-
-//  let totalLi = document.createElement('li');
-//  totalLi.textContent = `Total Clicks: ${productTally.clicks}`;
-//  resultsContainer.appendChild(totalLi);
-// },
-
-//  setupListeners: function() {
-//   productTally.duckContainer.addEventListener("click", productTally.handleClick);
-//  productTally.button.addEventListener("click", productTally.renderResults);
-// },
-
-//  removeEventListener: function() {
-// productTally.duckContainer.removeEventListener("click", productTally.handleClick);
-// }
-// }
-// productTally.removeEventListener();
-// productTally.renderProducts();
-// productTally.setupListeners();
+// function renderChart() {
 
 
-let config = {
-  type: 'bar',
-  data: {
-    labels: duckNames,
+let  productVotes = [];
+let productNames = [];
+let  productViews = [];
+
+  for (let i = 0; i < state.allProducts.length; i++) {
+    productVotes.push(state.allProducts[i].votes);
+    productNames.push(state.allProducts[i].name);
+    productViews.push(state.allProducts[i].views);
+  }
+
+  const myChartData = {
+    labels: productNames,
     datasets: [
       {
-        label: 'Duck Votes',
-        data: duckVotes,
-        borderWidth: 1,
+        label: "Votes",
+        data: productVotes,
+        borderWidth: 2,
         backgroundColor: [
-          'rgb(25, 117, 1, 1)'
-        ],
-        borderColor: [
-          'rgb(25, 117, 1, 1)'
+          'darkblue'
         ]
       },
       {
-        label: 'Duck Views',
-        data:duckViews ,
-        borderWidth: 1,
-        backgroundColor:[
-          'rgba(255, 170, 0, 1)',
-        ],
-        borderColor: [
-          'rgb(255, 170, 0, 1)',
-        ]
+        label: "Views",
+        data: productViews,
+        borderWidth: 2,
+        backgroundColor: ['red']
       }
-    ],
-  },
-  options: {
-    scales: {
-      y: {
-        beginAtZero: true
+    ]
+  }
+
+  const config = {
+    type: 'bar',
+    data: myChartData,
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+          
+        }
       }
     }
   }
-};
-new Chart(ctx, config);
+
+  const myChart = new Chart(productChart, config);
+
 }
+
+
+function handleClick(event) {
+  let imageName = event.target.alt;
+
+  for (let i = 0; i < state.allProducts.length; i++) {
+    if (imageName === state.allProducts[i].name) {
+      state.allProducts[i].votes++;
+      break;
+    }
+  }
+  // state.
+  clicks++;
+
+  if (clicks >= maxClicks) {
+    duckContainer.removeEventListener("click", handleClick);
+    renderResults();
+  } 
+  else {
+
+  renderProducts();
+
+}
+
+localStorage.setItem('allProducts', JSON.stringify(state.allProducts));
+}
+function setupListeners() {
+  duckContainer.addEventListener("click", handleClick);
+}
+function removeListener() {
+  duckContainer.removeEventListener("click", handleClick);
+ }
+function init (){
+   let stateString = localStorage.getItem('allProducts');
+   if(stateString){
+      state.allProducts = JSON.parse(stateString);
+   }
+  }
+
+new Product("Bag", "img/bag.jpg");
+new Product("Banana", "img/banana.jpg");
+new Product("Bathroom", "img/bathroom.jpg");
+new Product("Boots", "img/boots.jpg");
+new Product("Breakfast", "img/breakfast.jpg");
+new Product("Bubblegum", "img/bubblegum.jpg");
+new Product("Chair", "img/chair.jpg");
+new Product("Cthulhu", "img/cthulhu.jpg");
+new Product("Dog-Duck", "img/dog-duck.jpg");
+new Product("Dragon", "img/dragon.jpg");
+new Product("Pen", "img/pen.jpg");
+new Product("Pet-Sweep", "img/pet-sweep.jpg");
+new Product("Scissors", "img/scissors.jpg");
+new Product("Shark", "img/shark.jpg");
+new Product("Sweep", "img/sweep.jpg");
+new Product("Tauntaun", "img/tauntaun.jpg");
+new Product("Unicorn", "img/unicorn.jpg");
+new Product("Water-Can", "img/water-can.jpg");
+new Product("Wine-Glass", "img/wine-glass.jpg");
+
+
+init();
+renderProducts();
+setupListeners();
+removeButton();
